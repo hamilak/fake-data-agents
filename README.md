@@ -52,10 +52,10 @@ cd fake-data-agents
 
 ### 2. Install dependencies
 
-Make sure you have Python 3.13 installed. Install the required dependencies with `uv`:
+Make sure you have Python 3.12 installed. Install the required dependencies with `uv`:
 
 ```bash
-uv install
+uv sync
 ```
 
 Dependencies include:
@@ -66,17 +66,12 @@ Dependencies include:
 
 For each LLM you plan to use, make sure you have the appropriate API keys. You can input the API key directly when prompted in the program or store them in environment variables for easy access.
 
-Example:
-```bash
-export OPENAI_API_KEY='your-openai-api-key'
-```
-
 ### 4. Run the program
 
-You can start the synthetic data generation by running the `main.py` file:
+You can start the synthetic data generation by running the `faker.py` file:
 
 ```bash
-python main.py
+python3 src/fake_data_agents/faker.py
 ```
 
 You will be prompted to select the LLM type and the type of data you want to generate.
@@ -99,12 +94,6 @@ Once you run `main.py`, the program will prompt you to select:
 
 The system will then generate and display the requested synthetic data based on the input.
 
-### Code Overview
-
-- **`main.py`**: The entry point for the program. Handles user input and calls the `RecipeManager` to generate data.
-- **`recipe_manager.py`**: Contains the `RecipeManager` class which manages the selection of the LLM and generates data based on the user's input.
-- **`llm_recipes.py`**: Contains classes for each LLM (e.g., `OpenAIRecipe`, `GeminiRecipe`, `PerplexityRecipe`, `LLaMARecipe`). Each class implements the logic to interact with its respective LLM API.
-- **`data_prompts.py`**: Contains the `DataPrompts` class which holds prompt templates for each data type (e.g., address, credit card, person).
 
 ### Adding New Data Types
 

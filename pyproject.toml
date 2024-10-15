@@ -21,3 +21,5 @@ build-backend = "setuptools.build_meta"
 package-dir = {"" = "src"}
 packages = ["fake_data_agents"]
 
+[tool.pytest.ini_options]
+pythonpath = ["."]

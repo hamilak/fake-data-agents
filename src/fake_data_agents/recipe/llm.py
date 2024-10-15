@@ -1,7 +1,6 @@
 import os
 import openai
 import google.generativeai as genai
-# from openai import OpenAI
 from dotenv import load_dotenv
 
 from fake_data_agents.recipe.base import LLMRecipe
@@ -19,7 +18,6 @@ class OpenAIRecipe(LLMRecipe):
         )
         return response.choices[0].message.content.strip()
 
-# Implement similar classes for Gemini, Perplexity, and LLaMA
 class GeminiRecipe(LLMRecipe):
     def generate(self, prompt: str):
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -28,10 +26,8 @@ class GeminiRecipe(LLMRecipe):
 
 class PerplexityRecipe(LLMRecipe):
     def generate(self, prompt: str):
-        # Implement Perplexity-specific API call
         return "Perplexity-generated response"
 
 class LLaMARecipe(LLMRecipe):
     def generate(self, prompt: str):
-        # Implement LLaMA-specific API call
         return "LLaMA-generated response"
