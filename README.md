@@ -64,7 +64,7 @@ Dependencies include:
 
 ### 3. Set up API keys
 
-For each LLM you plan to use, make sure you have the appropriate API keys. You can input the API key directly when prompted in the program or store them in environment variables for easy access.
+For each LLM you plan to use, make sure you have the appropriate API keys. You can store them in environment variables for easy access.
 
 ### 4. Run the program
 
@@ -74,7 +74,7 @@ You can start the synthetic data generation by running the `faker.py` file:
 python3 src/fake_data_agents/faker.py
 ```
 
-You will be prompted to select the LLM type and the type of data you want to generate.
+You can also import generate_fake_data from faker.py in your project. It accepts llm type and the datatype you want to generate as arguments
 
 ### Example
 

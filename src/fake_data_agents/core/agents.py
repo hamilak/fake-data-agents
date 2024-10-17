@@ -18,12 +18,14 @@ class AgentManager:
             raise ValueError(f"LLM type '{llm_type}' is not supported.")
         return llm_class()
     
-    def generate(self, llm_type: str, data_type: str):
+    def generate(self, llm_type: str, data_type: str, n_samples: int):
         # Get the LLM instance based on the user's choice
         llm = self.get_llm(llm_type)
         
         # Get the appropriate prompt for the requested data type
         prompt = DataProviders.get_prompt(data_type)
+        prompt = prompt + f"Make it {n_samples} samples"
+        # print(prompt)
         if "Unknown" in prompt:
             raise ValueError(f"Data type '{data_type}' is not supported.")
         initial_output = llm.generate(prompt)
