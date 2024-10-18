@@ -1,0 +1,1 @@
+from fake_data_agents.faker import generate_fake_data
