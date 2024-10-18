@@ -37,6 +37,5 @@ if __name__ == "__main__":
     
     try:
         result = generate_fake_data(llm_type, data_type, n_samples)
-        print(result)
     except ValueError as e:
         print(e)

@@ -25,7 +25,6 @@ class AgentManager:
         # Get the appropriate prompt for the requested data type
         prompt = DataProviders.get_prompt(data_type)
         prompt = prompt + f"Make it {n_samples} samples"
-        # print(prompt)
         if "Unknown" in prompt:
             raise ValueError(f"Data type '{data_type}' is not supported.")
         initial_output = llm.generate(prompt)
