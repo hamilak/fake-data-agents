@@ -41,10 +41,24 @@ The following data types can be generated:
 
 ## Installation
 
-You can install with pip:
+You can install with any package manager:
+
+- Pip
 
 ```bash
 pip install fake-data-agents
+```
+
+- Poetry 
+
+```bash
+poetry add fake-data-agents
+```
+
+- uv
+
+```bash
+uv add fake-data-agents
 ```
 
 To set up the project locally, follow these steps:
@@ -83,13 +97,26 @@ python3 src/fake_data_agents/faker.py
 You can also import generate_fake_data from faker.py in your project. It accepts llm type and the datatype you want to generate as arguments
 
 ## Usage
+To generate synthetic data, you can use the `generate_fake_data` function from the `faker.py` module.
 
-Once you run `main.py`, the program will prompt you to select:
-1. **LLM Type**: Choose the language model (e.g., OpenAI, Gemini, Perplexity, LLaMA).
-2. **Data Type**: Choose the type of synthetic data you want to generate (e.g., person, address, job, credit card, etc.).
-3. **API Key**: Enter your API key for the chosen LLM. If you're using environment variables to store the keys, this can be left empty.
+1. **Import the function**:  
+   ```bash
+   from faker import generate_fake_data
+   ```
 
-The system will then generate and display the requested synthetic data based on the input.
+2. **Call the function with the required arguments**:
+   - **`llm_type`**: The language model you want to use (e.g., "OpenAI", "Gemini", "Perplexity", "LLaMA").
+   - **`data_type`**: The type of synthetic data to generate (e.g., "person", "address", "job", "credit card", etc.).
+   - **`n_samples`**: The number of synthetic samples to generate.
+
+   Example:
+   ```bash
+   generate_fake_data(llm_type="openai", data_type="person", n_samples=10)
+   ```
+
+Store API keys for your chosen LLM in .env file. 
+
+The function will return and/or display the generated synthetic data based on the provided input.
 
 
 ### Adding New Data Types
