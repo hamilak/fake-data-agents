@@ -1,4 +1,4 @@
-name: CI
+name: Fake Data Agents CI
 
 on:
   push:
@@ -8,10 +8,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write   
+  packages: write   
+  id-token: write   
+  pull-requests: write
+  actions: read     
+  issues: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -29,8 +36,51 @@ jobs:
       - name: Run tests
         run: uv run pytest tests
 
-      - name: build-package
+      - name: Build package
         run: uv build
 
-      - name: release-package
-        run: uv publish --token ${{secrets.PYPI_TOKEN}}
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+     
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+     
+      - name: Bump version and update changelog
+        run: |
+          uv bump auto  # Automatically bumps the version based on commit messages
+          uv changelog  # Generates and updates the changelog
+
+      - name: Commit version and changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Bump version and update changelog"
+          git push origin main
+
+      - name: Tag the version
+        run: |
+          version=$(python -c "import version; print(version.__version__)")
+          git tag v$version
+          git push origin v$version
+
+      - name: Build package
+        run: uv build
+
+      - name: Release package to PyPI
+        run: uv publish --token ${{ secrets.PYPI_TOKEN }}
