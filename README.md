@@ -41,6 +41,12 @@ The following data types can be generated:
 
 ## Installation
 
+You can install with pip:
+
+```bash
+pip install fake-data-agents
+```
+
 To set up the project locally, follow these steps:
 
 ### 1. Clone the repository
