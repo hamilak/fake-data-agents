@@ -82,15 +82,6 @@ python3 src/fake_data_agents/faker.py
 
 You can also import generate_fake_data from faker.py in your project. It accepts llm type and the datatype you want to generate as arguments
 
-### Example
-
-```bash
-Enter the LLM type (openai, gemini, perplexity, llama): openai
-Enter the data type to generate (address, automotive, bank, etc.): person
-Enter your API key (if applicable): your-openai-api-key
-Generated person: John Doe, 35 years old, Male
-```
-
 ## Usage
 
 Once you run `main.py`, the program will prompt you to select:
