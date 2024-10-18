@@ -4,7 +4,7 @@ import json
 from fake_data_agents.core.agents import AgentManager
 from fake_data_agents.core.providers import DataProviders
 
-def generate_fake_data(llm_type: str, data_type: str, n_samples: int) -> str:
+def generate_fake_data(llm_type: str, data_type: str, n_samples: int = 1) -> str:
 
     agent_manager = AgentManager()
 

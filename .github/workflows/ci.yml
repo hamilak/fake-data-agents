@@ -12,12 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    - name: build-package
-      run: uv build
-
-    - name: release-package
-      run: uv publish --token {{secrets.PYPI_TOKEN}}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -34,3 +28,9 @@ jobs:
 
       - name: Run tests
         run: uv run pytest tests
+
+      - name: build-package
+        run: uv build
+
+      - name: release-package
+        run: uv publish --token {{secrets.PYPI_TOKEN}}
