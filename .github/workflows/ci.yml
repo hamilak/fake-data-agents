@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - main
+  tags:
+    - "[0-9]+.[0-9]+.[0-9]+"
+    - "[0-9]+.[0-9]+rc[0-9]+"
+    - "[0-9]+.[0-9]+[ab][0-9]+"
 
 jobs:
   build:
@@ -27,7 +31,9 @@ jobs:
         run: uv run pytest tests
 
       - name: build-package
-        run: uv build
+        run: |
+        sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
+        uv build
 
       - name: release-package
         run: uv publish --token ${{secrets.PYPI_TOKEN}}

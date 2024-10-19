@@ -14,12 +14,12 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-packages = ["fake_data_agents"]
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["fake_data_agents*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
