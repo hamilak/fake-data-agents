@@ -32,8 +32,8 @@ jobs:
 
       - name: build-package
         run: |
-        sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
-        uv build
+          sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
+          uv build
 
       - name: release-package
         run: uv publish --token ${{secrets.PYPI_TOKEN}}
