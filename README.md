@@ -99,12 +99,32 @@ You can also import generate_fake_data from faker.py in your project. It accepts
 ## Usage
 To generate synthetic data, you can use the `generate_fake_data` function from the `faker.py` module.
 
-1. **Import the function**:  
+#### 1. **Import the function**:  
    ```bash
-   from faker import generate_fake_data
+   from fake-data-agents.faker import generate_fake_data
    ```
 
-2. **Call the function with the required arguments**:
+#### 2. Store API keys for your chosen LLM in .env file.
+* Create a .env file in the root directory of your project.
+* Add your API key to the .env file, for example, for OpenAI:
+```
+OPENAI_KEY=your-openai-api-key
+```
+
+#### 3. In your Python file, configure the API key by loading it from the .env file:
+```bash
+import openai
+import os
+from dotenv import load_dotenv
+
+# Load the environment variables from the .env file
+load_dotenv()
+
+# Set OpenAI API key from the environment variable
+openai.api_key = os.getenv('OPENAI_KEY')
+```
+
+#### 4. **Call the function with the required arguments**:
    - **`llm_type`**: The language model you want to use (e.g., "OpenAI", "Gemini", "Perplexity", "LLaMA").
    - **`data_type`**: The type of synthetic data to generate (e.g., "person", "address", "job", "credit card", etc.).
    - **`n_samples`**: The number of synthetic samples to generate.
@@ -113,8 +133,6 @@ To generate synthetic data, you can use the `generate_fake_data` function from t
    ```bash
    generate_fake_data(llm_type="openai", data_type="person", n_samples=10)
    ```
-
-Store API keys for your chosen LLM in .env file. 
 
 The function will return and/or display the generated synthetic data based on the provided input.
 
