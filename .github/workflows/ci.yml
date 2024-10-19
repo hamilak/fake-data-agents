@@ -32,7 +32,7 @@ jobs:
 
       - name: build-package
         run: |
-          sed -i -e "s/0.0.0/${GITHUB_REF#refs/*/}/" pyproject.toml
+          sed -i -e "s|0.0.0|${GITHUB_REF#refs/*/}|g" pyproject.toml
           uv build
 
       - name: release-package
