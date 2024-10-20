@@ -139,10 +139,10 @@ The function will return and/or display the generated synthetic data based on th
 
 ### Adding New Data Types
 
-To add new data types, modify the `DataPrompts` class in `data_prompts.py` by adding a new key-value pair for the new data type:
+To add new data types, modify the `DataProviders` class in `data_prompts.py` by adding a new key-value pair for the new data type:
 
 ```python
-class DataPrompts:
+class DataProviders:
     prompts = {
         # Existing prompts...
         "new_data_type": "Generate a random new data type description.",
