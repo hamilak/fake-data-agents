@@ -1,12 +1,13 @@
 name: CI
 
-permissions:
-  contents: write
-
 on:
   pull_request:
     branches:
       - main
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+rc[0-9]+"
+      - "[0-9]+.[0-9]+[ab][0-9]+"
 
 jobs:
   build:
@@ -15,36 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Python and Commitizen
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: "Set up Python"
         uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
 
-      - run: pip install commitizen
-
-      - name: Install the project dependencies
+      - name: Install the project
         run: uv sync --all-extras --dev
 
       - name: Run tests
         run: uv run pytest tests
 
-      - name: Bump version based on PR commits
-        if: github.event.pull_request.merged == true
+      - name: build-package
         run: |
-          cz bump --changelog --yes
+          sed -i -e "s|0.0.0|${GITHUB_REF#refs/*/}|g" pyproject.toml
+          uv build
 
-          new_version=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
-
-          git config --local user.name "github-actions"
-          git config --local user.email "github-actions@github.com"
-          git commit -am "ci: bump version to $new_version"
-
-          git tag "v$new_version"
-
-          git push origin main --tags
-
-      - name: Build package
-        run: uv build
-
-      - name: Publish package to PyPI
+      - name: release-package
         run: uv publish --token ${{secrets.PYPI_TOKEN}}
