@@ -12,7 +12,7 @@ openai.api_key =  os.getenv('OPENAI_KEY')
 
 class OpenAIRecipe(LLMRecipe):
     def generate(self, prompt: str):
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo", 
             messages= [{ "role": 'user', "content": prompt }]
         )
